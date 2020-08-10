@@ -21,8 +21,4 @@
     <ProjectReference Include="..\OVR.Services\OVR.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Filters\" />
-  </ItemGroup>
-
 </Project>
