@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OVR.Common\OVR.Common.csproj" />
-    <ProjectReference Include="..\OVR.Entities\OVR.Entities.csproj" />
-    <ProjectReference Include="..\OVR.UnitOfWork\OVR.UnitOfWork.csproj" />
+    <Compile Remove="Mappings\**" />
+    <EmbeddedResource Remove="Mappings\**" />
+    <None Remove="Mappings\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappings\" />
+    <ProjectReference Include="..\OVR.Common\OVR.Common.csproj" />
+    <ProjectReference Include="..\OVR.Entities\OVR.Entities.csproj" />
+    <ProjectReference Include="..\OVR.UnitOfWork\OVR.UnitOfWork.csproj" />
   </ItemGroup>
 
   <ItemGroup>

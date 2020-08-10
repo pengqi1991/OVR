@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using OVR.Component.Aop;
 using OVR.DbContexts;
 using OVR.Filters;
@@ -39,10 +40,13 @@ namespace OVR
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(options =>
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
             {
-                options.Filters.Add<ApiExceptionFilter>();
-            });
+                // 返回数据首字母不小写，CamelCasePropertyNamesContractResolver是小写
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            }); ;
+        
             //注册automapper服务
             services.AddAutomapperService();
             services.AddUnitOfWorkService<MSDbContext>(options => { options.UseSqlServer(Configuration.GetSection("ConectionStrings:SQLServerDbContext").Value); });

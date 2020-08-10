@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using OVR.Common;
+using OVR.Common.Extensions;
+using OVR.Entities;
 using OVR.Filters;
 using OVR.Models;
+using OVR.Services.Login;
 using OVR.WebCore.Core;
 
 namespace OVR.Controllers
@@ -14,17 +19,16 @@ namespace OVR.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserLoginService userLoginService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IUserLoginService userLoginService)
         {
             _logger = logger;
+            this.userLoginService = userLoginService;
         }
         [AuthorizeFilter]
         public IActionResult Index()
         {
-            _logger.LogError("aaaaa");
-
-            
             return View();
         }
         public IActionResult Login()
@@ -41,48 +45,16 @@ namespace OVR.Controllers
         [HttpPost]
         public async Task<IActionResult> LoginJson(string userName, string password)
         {
-            TData obj = new TData();
-            
 
-
-
-
-            TData<UserEntity> userObj = await userBLL.CheckLogin(userName, password, (int)PlatformEnum.Web);
+            TData<UserLogin> userObj = await userLoginService.CheckLogin(userName, password);
             if (userObj.Tag == 1)
             {
-                await new UserBLL().UpdateUser(userObj.Data);
-                await Operator.Instance.AddCurrent(userObj.Data.WebToken);
+                CookieOptions option = new CookieOptions();
+                option.Expires = DateTime.Now.AddDays(30);
+                HttpContext?.Response.Cookies.Append(CommonData.TokenName, userObj.ToJsonString(), option);
             }
 
-            string ip = NetHelper.Ip;
-            string browser = NetHelper.Browser;
-            string os = NetHelper.GetOSVersion();
-            string userAgent = NetHelper.UserAgent;
-
-            Action taskAction = async () =>
-            {
-                LogLoginEntity logLoginEntity = new LogLoginEntity
-                {
-                    LogStatus = userObj.Tag == 1 ? OperateStatusEnum.Success.ParseToInt() : OperateStatusEnum.Fail.ParseToInt(),
-                    Remark = userObj.Message,
-                    IpAddress = ip,
-                    IpLocation = IpLocationHelper.GetIpLocation(ip),
-                    Browser = browser,
-                    OS = os,
-                    ExtraRemark = userAgent,
-                    BaseCreatorId = userObj.Data?.Id
-                };
-
-                // 让底层不用获取HttpContext
-                logLoginEntity.BaseCreatorId = logLoginEntity.BaseCreatorId ?? 0;
-
-                await logLoginBLL.SaveForm(logLoginEntity);
-            };
-            AsyncTaskHelper.StartTask(taskAction);
-
-            obj.Tag = userObj.Tag;
-            obj.Message = userObj.Message;
-            return Json(obj);
+            return Json(userObj);
         }
         #endregion
 

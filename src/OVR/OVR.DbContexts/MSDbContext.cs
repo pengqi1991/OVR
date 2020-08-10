@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using OVR.Common.Security;
+
 using OVR.Entities;
 using OVR.Entities.Core;
 using System;
@@ -60,7 +60,7 @@ namespace OVR.DbContexts
             {
                 UserId = rootUserId,
                 Account = "admin",
-                HashedPassword = Crypto.HashPassword("admin"),//默认密码同账号名
+                HashedPassword = "admin",//默认密码同账号名
                 IsLocked = false
             });
             base.OnModelCreating(modelBuilder);

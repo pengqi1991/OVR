@@ -15,13 +15,13 @@ namespace OVR.Services
     {
         public readonly IUnitOfWork<MSDbContext> _unitOfWork;
         public readonly IMapper _mapper;
-        public readonly IdWorker _idWorker;
+   
 
-        public BaseService(IUnitOfWork<MSDbContext> unitOfWork, IMapper mapper, IdWorker idWorker)
+        public BaseService(IUnitOfWork<MSDbContext> unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _idWorker = idWorker;
+            
         }
     }
 }

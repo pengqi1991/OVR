@@ -16,7 +16,7 @@ namespace OVR.Services.RoleS
     public class RoleService : BaseService, IRoleService
     {
 
-        public RoleService(IUnitOfWork<MSDbContext> unitOfWork,IMapper mapper ,IdWorker idWorker):base(unitOfWork,mapper,idWorker)
+        public RoleService(IUnitOfWork<MSDbContext> unitOfWork,IMapper mapper ):base(unitOfWork,mapper)
         {
 
         }
@@ -33,7 +33,7 @@ namespace OVR.Services.RoleS
             using (var tran = _unitOfWork.BeginTransaction())//开启一个事务
             {
                 Role newRow = _mapper.Map<Role>(viewModel);
-                newRow.Id = _idWorker.NextId();//获取一个雪花Id
+                newRow.Id = 111;//获取一个雪花Id
                 newRow.Creator = 1219490056771866624;//由于暂时还没有做登录，所以拿不到登录者信息，先随便写一个后面再完善
                 newRow.CreateTime = DateTime.Now;
                 _unitOfWork.GetRepository<Role>().Insert(newRow);
