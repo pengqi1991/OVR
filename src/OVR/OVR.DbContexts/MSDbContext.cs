@@ -12,11 +12,16 @@ namespace OVR.DbContexts
     public class MSDbContext : DbContext
     {
 
+        public DbSet<SysMenu> SysMenus { get; set; }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
-        public DbSet<Role> Roles { get; set; }
+
+
         public DbSet<Logrecord> Logrecords { get; set; }
+
+        public DbSet<UserMenu> UserMenus { get; set; }
+
+
 
 
         //Add-Migration InitialCreate
@@ -36,32 +41,31 @@ namespace OVR.DbContexts
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            long rootUserId = 1219490056771866624;
-            modelBuilder.Entity<Role>().HasData(new Role
+            //菜单
+            modelBuilder.Entity<SysMenu>().HasData(new List<SysMenu>()
             {
-                Id = 1219490056771866625,
-                Name = "SuperAdmin",
-                DisplayName = "超级管理员",
-                Remark = "系统内置超级管理员",
-                Creator = rootUserId,
-                CreateTime = DateTime.Now
+                new SysMenu{Id = 1,MenuName ="单位组织",MenuIcon ="fa fa-home",MenuSort=1,MenuType =1},
+                new SysMenu{Id = 2,MenuName ="系统管理",MenuIcon ="fa fa-gear",MenuSort=2,MenuType =1},
+              
+
+                new SysMenu{Id = 10,MenuName ="部门管理",ParentId=1,MenuUrl="OrganizationManage/Department/DepartmentIndex",MenuSort=1,MenuType =2},
+                new SysMenu{Id = 11,MenuName ="角色管理",ParentId=2,MenuUrl="SystemManage/LogOperate/LogOperateIndex",MenuSort=1,MenuType =2},
+                new SysMenu{Id = 12,MenuName ="菜单管理",ParentId=2,MenuUrl="SystemManage/LogOperate/LogOperateIndex",MenuSort=2,MenuType =2},
+                new SysMenu{Id = 13,MenuName ="系统日志",ParentId=2,MenuUrl="SystemManage/LogOperate/LogOperateIndex",MenuSort=3,MenuType =2},
+                new SysMenu{Id = 14,MenuName ="定时任务",ParentId=2,MenuUrl="SystemManage/LogOperate/LogOperateIndex",MenuSort=4,MenuType =2},
+
             });
-            modelBuilder.Entity<User>().HasData(new User
-            {
-                Id = rootUserId,
-                Account = "admin",
-                Name = "admin",
-                RoleId = 1219490056771866625,
-                StatusCode = StatusCode.Enable,
-                Creator = rootUserId,
-                CreateTime = DateTime.Now,
+
+            //用户
+            modelBuilder.Entity<UserLogin>().HasData(new List<UserLogin> {
+                 new UserLogin{Id = 1,Name = "管理员",Account = "admin",Password = "admin",isSuperAdmin = true },
+                 new UserLogin{Id = 2,Name = "普通用户",Account = "user",Password = "user",isSuperAdmin = false }
             });
-            modelBuilder.Entity<UserLogin>().HasData(new UserLogin
+            //用户拥有的菜单
+            modelBuilder.Entity<UserMenu>().HasData(new List<UserMenu>
             {
-                UserId = rootUserId,
-                Account = "admin",
-                HashedPassword = "admin",//默认密码同账号名
-                IsLocked = false
+                new UserMenu{ Id  = 1, UserLoginId = 2 ,SysMenuId  =  1},
+                new UserMenu{ Id  = 2, UserLoginId = 2 ,SysMenuId  =  10},
             });
             base.OnModelCreating(modelBuilder);
         }

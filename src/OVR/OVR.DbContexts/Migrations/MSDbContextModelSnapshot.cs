@@ -106,12 +106,105 @@ namespace OVR.DbContexts.Migrations
                         new
                         {
                             Id = 1219490056771866625L,
-                            CreateTime = new DateTime(2020, 8, 10, 10, 52, 35, 979, DateTimeKind.Local).AddTicks(4246),
+                            CreateTime = new DateTime(2020, 8, 11, 15, 44, 13, 329, DateTimeKind.Local).AddTicks(8814),
                             Creator = 1219490056771866624L,
                             DisplayName = "超级管理员",
                             Name = "SuperAdmin",
                             Remark = "系统内置超级管理员",
                             StatusCode = 0
+                        });
+                });
+
+            modelBuilder.Entity("OVR.Entities.SysMenu", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MenuIcon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MenuName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MenuSort")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MenuType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MenuUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SysMenus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            MenuIcon = "fa fa-home",
+                            MenuName = "单位组织",
+                            MenuSort = 1,
+                            MenuType = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            MenuIcon = "fa fa-gear",
+                            MenuName = "系统管理",
+                            MenuSort = 2,
+                            MenuType = 1
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            MenuName = "部门管理",
+                            MenuSort = 1,
+                            MenuType = 2,
+                            MenuUrl = "OrganizationManage/Department/DepartmentIndex",
+                            ParentId = 1L
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            MenuName = "角色管理",
+                            MenuSort = 1,
+                            MenuType = 2,
+                            MenuUrl = "SystemManage/LogOperate/LogOperateIndex",
+                            ParentId = 2L
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            MenuName = "菜单管理",
+                            MenuSort = 2,
+                            MenuType = 2,
+                            MenuUrl = "SystemManage/LogOperate/LogOperateIndex",
+                            ParentId = 2L
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            MenuName = "系统日志",
+                            MenuSort = 3,
+                            MenuType = 2,
+                            MenuUrl = "SystemManage/LogOperate/LogOperateIndex",
+                            ParentId = 2L
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            MenuName = "定时任务",
+                            MenuSort = 4,
+                            MenuType = 2,
+                            MenuUrl = "SystemManage/LogOperate/LogOperateIndex",
+                            ParentId = 2L
                         });
                 });
 
@@ -163,7 +256,7 @@ namespace OVR.DbContexts.Migrations
                         {
                             Id = 1219490056771866624L,
                             Account = "admin",
-                            CreateTime = new DateTime(2020, 8, 10, 10, 52, 35, 981, DateTimeKind.Local).AddTicks(5909),
+                            CreateTime = new DateTime(2020, 8, 11, 15, 44, 13, 330, DateTimeKind.Local).AddTicks(3004),
                             Creator = 1219490056771866624L,
                             Name = "admin",
                             RoleId = 1219490056771866625L,
@@ -205,7 +298,7 @@ namespace OVR.DbContexts.Migrations
                         {
                             Account = "admin",
                             AccessFailedCount = 0,
-                            HashedPassword = "AQAAAAEAACcQAAAAEFm1uZGLwRD4+G+EJGWRg2CA37PPVG98xWiqsJBBrzv8D9cha13RMmGnw+5bBMY83Q==",
+                            HashedPassword = "admin",
                             IsLocked = false,
                             UserId = 1219490056771866624L
                         });

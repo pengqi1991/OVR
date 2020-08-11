@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200810025236_inital.cs" />
+    <Compile Remove="Migrations\20200810025236_inital.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OVR.Common\OVR.Common.csproj" />
     <ProjectReference Include="..\OVR.Entities\OVR.Entities.csproj" />
     <ProjectReference Include="..\OVR.UnitOfWork\OVR.UnitOfWork.csproj" />

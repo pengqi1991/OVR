@@ -182,17 +182,17 @@
             var opt = $.extend({
                 url: option.url,
                 async: true,
-                type: "get",
+                type: option.type,
                 data: option.data || {},
                 dataType: option.dataType || "json",
                 error: function (xhr, status, obj) { ys.alertError("系统出错了"); },
                 success: function (rdata) {
                     ys.msgSuccess();
                 },
-                beforeSend: function (xhr) {
+                beforeSend: function (jqXHR, settings  ) {
                     ys.showLoading("正在处理中...");
                 },
-                complete: function (xhr, status) {
+                complete: function (jqXHR, textStatus ) {
                     ys.closeLoading();
                 }
             }, option);
@@ -209,8 +209,8 @@
                 dataType: opt.dataType,
                 error: opt.error,
                 success: opt.success,
-                beforeSend: opt.beforeSend,
-                complete: opt.complete,
+                  beforeSend: opt.beforeSend,
+                complete: opt.complete
             });
         },
         ajaxUploadFile: function (option) {

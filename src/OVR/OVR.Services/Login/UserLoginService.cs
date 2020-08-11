@@ -36,7 +36,7 @@ namespace OVR.Services.Login
             if (userLogin != null)
             {
               
-                    if (userLogin.HashedPassword == password)
+                    if (userLogin.Password == password)
                     {
                         
                         obj.Data = userLogin;

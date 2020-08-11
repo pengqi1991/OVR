@@ -39,7 +39,7 @@ body.login {
         display: block;
         margin-top: 15px
     }
-
+/*
     .login-panel .uname {
         background: #fff url(../../image/user.png) no-repeat 95% center;
         color: #333
@@ -48,7 +48,7 @@ body.login {
     .login-panel .pword {
         background: #fff url(../../image/locked.png) no-repeat 95% center;
         color: #333
-    }
+    }*/
 
     .login-panel .code {
         background: #fff no-repeat 95% center;

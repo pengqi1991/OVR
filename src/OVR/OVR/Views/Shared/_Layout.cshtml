@@ -14,7 +14,9 @@
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-  
+    <link rel="stylesheet" href="~/mystyle/css/animate.css" />
+    <link rel="stylesheet" href="~/mystyle/css/style.css" />
+    <link rel="stylesheet" href="~/mystyle/css/yisha.css" />
     <!--首页需要用到的js结束-->
     @RenderSection("header", false)
     <title>成绩处理系统</title>
@@ -28,16 +30,18 @@
     </script>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg login">
-
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-cookie/jquery.cookie.min.js"></script>
+    <script src="~/lib/jquery-blockui/jquery.blockUI.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/layer/layer.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/mystyle/js/yisha.js"></script>
+    <script src="~/mystyle/js/yisha-plugin.js"></script>
 
     @RenderBody()
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/lib/layer/layer.min.js"></script>
 
-    <script src="~/mystyle/js/yisha.js"></script>
-    <script src="~/mystyle/js/yisha-plugin.js"></script>
     @RenderSection("footer", false)
 
 </body>

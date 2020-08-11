@@ -7,7 +7,7 @@ namespace OVR.Entities
 {
     public class Logrecord : IEntity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public DateTime LogDate { get; set; }
         public string LogLevel { get; set; }
         public string Logger { get; set; }

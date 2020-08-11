@@ -3,9 +3,9 @@
 @section header{
     <link href='@Url.Content("~/mystyle/css/login.css")' rel="stylesheet" />
     <script>if (window.top !== window.self) { window.top.location = window.location };</script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/mystyle/js/yisha.js"></script>
+
+    
+
 }
 <div class="login-panel">
     <div class="row section">
@@ -29,14 +29,9 @@
 </div>
 <script type="text/javascript">
     $(function () {
-
-
         if (!ys.isNullOrEmpty($.cookie('UserToken'))) {
             redirectToIndex();
         }
-
-
-
         $("#form").validate({
             rules: {
                 userName: { required: true },
@@ -52,9 +47,9 @@
     });
 
     function loginForm() {
-      //  if ($("#form").validate().form()) {
+        if ($("#form").validate().form()) {
             var postData = $("#form").getWebControls();
-        $.ajax({
+            ys.ajax({
                 url: "/Home/LoginJson",
                 type: "post",
             data: postData,
@@ -70,7 +65,7 @@
                     }
                 }
             });
-      //  }
+        }
     }
 
     function redirectToIndex() {

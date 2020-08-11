@@ -11,7 +11,7 @@ namespace OVR.Models.Automapper
     {
         public RoleProfile()
         {
-            CreateMap<RoleViewModel, Role>();
+            //CreateMap<RoleViewModel, Role>();
 
             //CreateMap<User, UserData>()
             //    .ForMember(a => a.Id, t => t.MapFrom(b => b.Id))
