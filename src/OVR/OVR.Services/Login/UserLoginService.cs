@@ -32,7 +32,7 @@ namespace OVR.Services.Login
             }
 
             
-            UserLogin userLogin = await _unitOfWork.GetRepository<UserLogin>().FindAsync(userName);
+            UserLogin userLogin = await _unitOfWork.GetRepository<UserLogin>().GetFirstOrDefaultAsync( r=> r.Account == userName,null,null,true,false);
             if (userLogin != null)
             {
               

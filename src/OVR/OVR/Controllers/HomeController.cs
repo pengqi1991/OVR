@@ -53,7 +53,11 @@ namespace OVR.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        public IActionResult Welcome()
+        {
+            return View();
+        }
 
         #region 实现登录
         [HttpPost]

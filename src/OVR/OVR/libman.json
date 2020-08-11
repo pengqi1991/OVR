@@ -23,12 +23,16 @@
     {
       "library": "jquery-blockui@2.7.0",
       "destination": "wwwroot/lib/jquery-blockui/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery-cookie@1.4.1",
+      "destination": "wwwroot/lib/jquery-cookie/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@5.14.0",
+      "destination": "wwwroot/lib/font-awesome/"
     }
-  ,
-{
-  "provider": "cdnjs",
-  "library": "jquery-cookie@1.4.1",
-  "destination": "wwwroot/lib/jquery-cookie/"
-}
-]
+  ]
 }

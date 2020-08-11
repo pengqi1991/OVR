@@ -10,8 +10,8 @@ using OVR.DbContexts;
 namespace OVR.DbContexts.Migrations
 {
     [DbContext(typeof(MSDbContext))]
-    [Migration("20200811074413_inital")]
-    partial class inital
+    [Migration("20200811104701_初始化")]
+    partial class 初始化
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,9 @@ namespace OVR.DbContexts.Migrations
 
             modelBuilder.Entity("OVR.Entities.Logrecord", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Exception")
@@ -67,54 +67,6 @@ namespace OVR.DbContexts.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Logrecords");
-                });
-
-            modelBuilder.Entity("OVR.Entities.Role", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("Creator")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("Modifier")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("ModifyTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Remark")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StatusCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1219490056771866625L,
-                            CreateTime = new DateTime(2020, 8, 11, 15, 44, 13, 329, DateTimeKind.Local).AddTicks(8814),
-                            Creator = 1219490056771866624L,
-                            DisplayName = "超级管理员",
-                            Name = "SuperAdmin",
-                            Remark = "系统内置超级管理员",
-                            StatusCode = 0
-                        });
                 });
 
             modelBuilder.Entity("OVR.Entities.SysMenu", b =>
@@ -210,7 +162,7 @@ namespace OVR.DbContexts.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OVR.Entities.User", b =>
+            modelBuilder.Entity("OVR.Entities.UserLogin", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -220,108 +172,68 @@ namespace OVR.DbContexts.Migrations
                     b.Property<string>("Account")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("Creator")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("Modifier")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("ModifyTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("StatusCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1219490056771866624L,
-                            Account = "admin",
-                            CreateTime = new DateTime(2020, 8, 11, 15, 44, 13, 330, DateTimeKind.Local).AddTicks(3004),
-                            Creator = 1219490056771866624L,
-                            Name = "admin",
-                            RoleId = 1219490056771866625L,
-                            StatusCode = 0
-                        });
-                });
-
-            modelBuilder.Entity("OVR.Entities.UserLogin", b =>
-                {
-                    b.Property<string>("Account")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HashedPassword")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsLocked")
+                    b.Property<bool>("isSuperAdmin")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastLoginTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LockedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Account");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("UserLogins");
 
                     b.HasData(
                         new
                         {
+                            Id = 1L,
                             Account = "admin",
-                            AccessFailedCount = 0,
-                            HashedPassword = "admin",
-                            IsLocked = false,
-                            UserId = 1219490056771866624L
+                            Name = "管理员",
+                            Password = "admin",
+                            isSuperAdmin = true
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Account = "user",
+                            Name = "普通用户",
+                            Password = "user",
+                            isSuperAdmin = false
                         });
                 });
 
-            modelBuilder.Entity("OVR.Entities.User", b =>
+            modelBuilder.Entity("OVR.Entities.UserMenu", b =>
                 {
-                    b.HasOne("OVR.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OVR.Entities.UserLogin", b =>
-                {
-                    b.HasOne("OVR.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<long>("SysMenuId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserLoginId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserMenus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            SysMenuId = 1L,
+                            UserLoginId = 2L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            SysMenuId = 10L,
+                            UserLoginId = 2L
+                        });
                 });
 #pragma warning restore 612, 618
         }
