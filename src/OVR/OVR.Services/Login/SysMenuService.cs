@@ -17,7 +17,7 @@ namespace OVR.Services.Login
         }
         public async Task<IList<SysMenu>> GetAll()
         {
-           return  await _unitOfWork.GetRepository<SysMenu>().GetAllAsync( null,q=>q.OrderBy(s => s.MenuSort) );
+           return  await _unitOfWork.GetRepository<SysMenu>().GetAllAsync( null,q=>q.OrderBy(s => s.MenuType ).OrderByDescending(c => c.MenuSort));
         }
 
     }

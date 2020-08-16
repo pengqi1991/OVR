@@ -6,7 +6,7 @@
     String portrait = Url.Content("~/image/portrait.png");
 }
 
-    <script src="~/mystyle/js/yisha-data.js"></script>
+<script src="~/yisha/js/yisha-data.js"></script>
 
 
 <div id="wrapper">
@@ -18,57 +18,46 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="logo">成绩处理系统</li>
-                
+
                 @{ List<SysMenu> menuList = ViewBag.MenuList;
-                foreach (SysMenu menu in menuList.Where(p => p.ParentId == 0).OrderBy(p => p.MenuSort))
-                {
-                     <li data-type="menu">
-                     @{ 
-                        if (HttpHelper.IsUrl(menu.MenuUrl))
-                        {
-                            <a class="menuItem" href="@menu.MenuUrl">
-                                <i class="@menu.MenuIcon"></i>
-                                <span class="nav-label">@menu.MenuName</span>
-                             </a> 
-                        }
-                        else
-                         {
-                            <a href="#">
-                                <i class="@menu.MenuIcon"></i>
-                                <span class="nav-label">@menu.MenuName</span>
-                                <span class="fa arrow"></span>
-                            </a> 
-                            } 
-                       }
-                        <ul class="nav nav-second-level collapse" data-type="menu">
-                             @foreach (SysMenu secondMenu in menuList.Where(p => p.ParentId == menu.Id).OrderBy(p => p.MenuSort))
-                                {
+                    foreach (SysMenu menu in menuList.Where(p => !p.ParentId.HasValue).OrderBy(p => p.MenuSort))
+                    {
                         <li data-type="menu">
-                            @{ if (menuList.Where(p => p.ParentId == secondMenu.Id && p.MenuType != 1).Count() == 0)
+                            @{
+                                if (HttpHelper.IsUrl(menu.MenuUrl))
                                 {
-                                    if (HttpHelper.IsUrl(secondMenu.MenuUrl))
-                                    {
-                                        <a class="menuItem" href='@secondMenu.MenuUrl'>@secondMenu.MenuName</a> }
-                                        else
-                                        {
-                                        <a class="menuItem" href="#" data-url='@Url.Content("~/" + secondMenu.MenuUrl)'>@secondMenu.MenuName</a> }
+                                    <a class="menuItem" href="@menu.MenuUrl">
+                                        <i class="@menu.MenuIcon"></i>
+                                        <span class="nav-label">@menu.MenuName</span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="#">
+                                        <i class="@menu.MenuIcon"></i>
+                                        <span class="nav-label">@menu.MenuName</span>
+                                        <span class="fa arrow"></span>
+                                    </a>
+                                }
+                            }
+                            <ul class="nav nav-second-level collapse" data-type="menu">
+                                @foreach (SysMenu secondMenu in menuList.Where(p => p.ParentId == menu.Id).OrderBy(p => p.MenuSort))
+                                {
+                                    <li data-type="menu">
+                                        @{ 
+                                                if (HttpHelper.IsUrl(secondMenu.MenuUrl))
+                                                {
+                                                    <a class="menuItem" href='@secondMenu.MenuUrl'>@secondMenu.MenuName</a> }
+                                                else
+                                                {
+                                                    <a class="menuItem" href="#" data-url='@Url.Content("~/" + secondMenu.MenuUrl)'>@secondMenu.MenuName</a> }
+                                           
                                         }
-                                        else
-                                        {
-                                        <a href="#">@secondMenu.MenuName<span class="fa arrow"></span></a>
-                                                <ul class="nav nav-third-level" data-type="menu">
-                                                    @foreach (SysMenu thirdMenu in menuList.Where(p => p.ParentId == secondMenu.Id).OrderBy(p => p.MenuSort))
-                                                    {
-                                            <li data-type="menu">
-                                                <a class="menuItem" href="#" data-url='@Url.Content("~/" + thirdMenu.MenuUrl)'>@thirdMenu.MenuName</a>
-                                            </li>
-                                        }
-                                                                </ul> } }
-                                        </li>
-                                          }
-                                    </ul>
-                                </li>
-                         } }
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    } }
             </ul>
         </div>
     </nav>
@@ -93,7 +82,7 @@
                                     <i class="fa fa-user"></i> 个人中心
                                 </a>
                             </li>
-                            
+
                             <li>
                                 <a onclick="showSwitchSkinForm()">
                                     <i class="fa fa-dashboard"></i> 切换主题
@@ -135,7 +124,7 @@
             <a href="#" class="roll-nav roll-right tabReload"><i class="fa fa-refresh"></i> 刷新</a>
         </div>
         <div class="row mainContent" id="content-main">
-          
+
         </div>
     </div>
     <!--右侧部分结束-->

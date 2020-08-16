@@ -12,12 +12,39 @@
 
     <link rel="bookmark" href='@Url.Content("~/favicon.ico")' />
     <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
+    <link rel="stylesheet" href="~/lib/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/4.7.0/css/fontawesome.min.css" />
+    <script src="~/lib/jquery/2.1.4/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/mystyle/css/animate.css" />
-    <link rel="stylesheet" href="~/mystyle/css/style.css" />
-    <link rel="stylesheet" href="~/mystyle/css/yisha.css" />
+    <script src="~/lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/lib/layer/3.1.1/layer.min.js"></script>
+
+    <script src="~/lib/laydate/5.0.9/laydate.min.js"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap.table/1.12.0/bootstrap-table.min.css" />
+    <script src="~/lib/bootstrap.table/1.12.0/bootstrap-table.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="~/yisha/css/style.css" />
+    <link rel="stylesheet" href="~/yisha/css/yisha.css" />
+
+    <link rel="stylesheet" href="~/lib/select2/4.0.6/css/select2.min.css" />
+    <script src="~/lib/select2/4.0.6/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="~/yisha/css/animate.css" />
+
+    <script src="~/lib/jquery.blockui/2.7/jquery.blockUI.js"></script>
+    <script src="~/lib/jquery.cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script src="~/lib/jquery.validation/1.14.0/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery.metisMenu/1.1.3/jquery.metisMenu.js"></script>
+    <script src="~/lib/jquery.slimscroll/1.3.8/jquery.slimscroll.min.js"></script>
+    <link rel="stylesheet" href="~/yisha/css/yisha.min.css" />
+    <script src="~/yisha/js/yisha.js"></script>
+    <script src="~/yisha/js/yisha-init.js"></script>
+    <script src="~/yisha/js/yisha-index.js"></script>
+
     <!--首页需要用到的js结束-->
     @RenderSection("header", false)
     <title>成绩处理系统</title>
@@ -31,19 +58,13 @@
     </script>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg login">
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/jquery-cookie/jquery.cookie.min.js"></script>
-    <script src="~/lib/jquery-blockui/jquery.blockUI.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/lib/layer/layer.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/mystyle/js/yisha.js"></script>
-    <script src="~/mystyle/js/yisha-plugin.js"></script>
+
 
     @RenderBody()
 
 
     @RenderSection("footer", false)
+   
 
 </body>
 </html>

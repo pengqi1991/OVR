@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OVR.Common.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace OVR.Common.Helper
         #region 是否是网址
         public static bool IsUrl(string url)
         {
+            if (url.IsEmpty())
+                return false;
             url = url.ToLower();
             if (url.StartsWith("http://") || url.StartsWith("https://"))
             {
